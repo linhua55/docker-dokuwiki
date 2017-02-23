@@ -44,3 +44,16 @@ EXPOSE 80
 VOLUME ["/var/dokuwiki-storage"]
 
 CMD /start.sh
+
+## add mathjax plugin
+RUN curl -O -L "https://github.com/liffiton/dokuwiki-plugin-mathjax/archive/master.zip" && \
+    unzip master.zip -d /var/www/lib/plugins/ && \
+    mv /var/www/lib/plugins/dokuwiki-plugin-mathjax-master /var/www/lib/plugins/mathjax && \
+    rm -rf master.zip
+	
+# add bootstrap3 template plugin
+RUN curl -o master.zip -L "https://github.com/LotarProject/dokuwiki-template-bootstrap3/zipball/master" && \
+    unzip master.zip -d /var/www/lib/tpl/ && \
+    mv /var/www/lib/tpl/LotarProject-dokuwiki-template-bootstrap3-* /var/www/lib/tpl/bootstrap3 && \
+    rm -rf master.zip
+# need to modify a file local.php
